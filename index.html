@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="purchaseinvoice.css">
+</head>
+
+<body>
+    <h1 class="PurchaseInvoices">Purchase Invoices</h1>
+    <img src="icon1.png" class="removeIcon1" id="headerDeleteAlls" alt="">
+    <img src="add.jpeg" onclick="showAll()" class="addIcon1" alt="">
+    <div id="hideblock">
+
+        <div id="overlayContainer">
+            <div class="over">
+                <fieldset class="mainFieldset">
+                    <fieldset class="dummyFlielset">
+
+                        <form action="" id="myForm" autocomplete="off">
+
+                            <div class="while">
+                                <h1 id="PurchaseInvoice">PURCHASE INVOICE</h1>
+                                <span id="closeOverlay" onclick="off()  " class="close">&times;</span>
+
+                                <fieldset class="headerFieldset">
+
+                                    <table class="headerTable">
+
+                                        <tr>
+                                            <label for="" id="invoiceerror"></label>
+                                            <th><label for="inid" class=" headerMoves">Invoice Id</label></th>
+                                            <td><input type="text" name="invid" id="invid" class=" headerMove"
+                                                    readonly><br>
+                                            </td>
+                                            <th><label for="Vendor" class=" headerAlignLefts">Vendor</label></th>
+                                            <td>
+                                                <select name="vendor" id="vendor" class=" headerAlignLeft"
+                                                    onchange="this.style.borderColor = 'black' ;document.getElementById('verror').textContent = ''; generateInvoiceId()">
+                                                    <option value="" id="verror">Select</option>
+                                                    <option value="Big Bazaar">Big Bazaar</option>
+                                                    <option value="D-Mart">D-Mart</option>
+                                                    <option value="G-Fresh Mart">G-Fresh Mart</option>
+                                                    <option value="EasyDay">EasyDay</option>
+                                                </select>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="docno" class=" headerMovess">Document No</label></th>
+                                            <td><input type="text" name="docno" id="docno" class=" headerMove" readonly>
+                                                <br> </td>
+
+                                            <th><label for="date" class=" headerAlignLeft">Invoice Date <span
+                                                        style="color:red;">*</span></label></th>
+                                            <td><input type="date" name="date" class=" headerAlignLeft" id="date"
+                                                    onchange="this.style.borderColor = 'black';">
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <th class=" headerMove">Billing Address</th>
+                                            <td><textarea name="address" id="address" cols="30" class=" headerMove"
+                                                    rows="4" onkeypress="this.style.borderColor = 'black';"></textarea>
+                                            </td>
+                                            <!-- <th><label for="status">Payment Status</label></th>
+                                     <td>
+                                  <select name="status" id="status">
+                                 <option value="">Select</option>
+                                  <option value="paid">Paid</option>
+                                  <option value="unpaid">Unpaid</option>
+                                   <option value="pending">Pending</option>
+                                  </select>
+                                  </td> -->
+                                        </tr>
+
+                                    </table>
+                                </fieldset>
+                            </div>
+
+                            <br><br><br>
+                            <fieldset class="lineFieldset">
+                                <legend id="LineItems">Line Items</legend>
+                                <div class="while">
+                                    <table class="lineTable">
+                                        <label id="productAlreadyInside"></label>
+
+                                        <div>
+                                            <tr>
+                                                <th><label for="Product" class="lineAlginRight">Product</label></th>
+                                                <td>
+                                                    <select name="Product" class="lineAlginRight" id="Product"
+                                                        onchange="clearValidate()">
+                                                        <option value="" id="prerror">Select</option>
+                                                        <option value="Apple">Apple</option>
+                                                        <option value="Sugar">Sugar</option>
+                                                        <option value="Orange">Orange</option>
+                                                        <option value="Milk">Milk</option>
+                                                        <option value="Oil">Oil</option>
+                                                    </select>
+                                                </td>
+                                                <th><label for="quantity" class="lineAlginLeft"
+                                                        class="linemove">Quantity</label></th>
+                                                <td><input type="number" class="lineAlginLeft" name="quantity"
+                                                        class="linemove" id="quantity"
+                                                        onkeypress="this.style.borderColor = 'black';">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th><label for=" uom" class="lineAlginRights">UOM</label></th>
+                                                <td><input type="text" id="uom" readonly class="lineAlginRight">
+                                                </td>
+                                                <!-- <label for="" id="priceerror"></label> -->
+                                                <th><label for="price" class="lineAlginLefts">Price</label>
+                                                </th>
+                                                <td><input type="number" name="price" class="lineAlginLeft" id="price"
+                                                        onkeypress="this.style.borderColor = 'black';">
+
+                                                </td>
+                                            </tr>
+
+                                    </table>
+                                    <br>
+                                    <button type="button" style="padding: 5px;" id="lineDeleteAlls">DeleteAll</button>
+                                    <button type="button" id="update" onclick="updateTable()"
+                                        class="Updates">Update</button>
+                                    <button class="linebtn" type="button" onclick="LineTable()" id="button">Add</button>
+                                    &nbsp;&nbsp;<button type="button" id="Cancel" class="linebtn"
+                                        onclick="updateModeClose()">Clear</button>
+                                </div>
+                                <br><br>
+                                <div id="linetablecontainer" class="linetablecontainer">
+                                    <table id="lineTable" border="1" role="all"
+                                        style="border-collapse: collapse; width:90%;">
+                                        <thead>
+                                            <tr style="padding: 20px;">
+                                                <th> <input type="checkbox" name="lineselectAllchk"
+                                                        onclick="lineSelectAll()" id="lineselectAllchk"
+                                                        style="width: 15px; padding: 20px;">
+                                                </th>
+                                                <th>S.NO</th>
+                                                <th>Product</th>
+                                                <th>Qty</th>
+                                                <th>UOM</th>
+                                                <th>Unit Price</th>
+                                                <th>Total Amount</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="linetbl">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <button id="headerupdatebtn" type="button" onclick="headerUpdateRow(event)">Update</button>
+                            <button class="headerbtn" id="submit" type="button"
+                                onclick="onHeaderSumbit()">Submit</button>
+                            &nbsp;&nbsp;<button type="reset" id="Cancels" class="headerbtn"
+                                onclick="cancel()">Clear</button>
+
+
+            </div>
+            </form>
+            </fieldset>
+            </fieldset>
+        </div>
+    </div>
+    </div>
+    <div class="headerTableStyle">
+        <table id="table1" border="1" role="all" style="border-collapse: collapse; width:90%;" align="center">
+            <thead>
+                <tr class="color">
+                    <th> <input type="checkbox" name="selectAllchk" onclick="headerSelectAll()" id="selectAllchk" >
+                    </th>
+                    <th>S.No</th>
+                    <th>Invoice Id</th>
+                    <th>Vendor</th>
+                    <th>Document No</th>
+                    <th> Invoice Date</th>
+                    <th>Billing Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="TableBody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!--                line delete               -->
+    <!--line  item  alert -->
+    <div id="alertLineBox" class="alert-box">
+        <div class="alert-content">
+
+            <p id="linealertText"></p>
+            <span id="closeOverlay" onclick="document.getElementById('alertLineBox').style.display='none';"
+                style=" position: relative; right: 890px; bottom: 120px;" class="close">&times;</span>
+            <button id="confirmlineBtn" style="padding: 9px; width: 55px; "" onclick=" confirmline()">OK</button>
+            <button id="cancellineBtn" class="close-btn">Cancel</button>
+        </div>
+    </div>
+    <!-- remove all data in line table -->
+    <div id="linedeleteBox" class="alert-box">
+        <div class="alert-content">
+            <p id="alertText">Are you sure you want to remove all data?</p>
+            <button id="deleteAllconfimBtn" class="Btn">Confirm</button>
+            <button id="deleteAllcancelBtn" class="close-btn">Cancel</button>
+        </div>
+    </div>
+    <!-- header  alert -->
+
+    <div id="alertBox" class="alert-box">
+        <div class="alert-content">
+            <p id="headeralertText"></p>
+            <span id="closeOverlay" onclick="document.getElementById('alertBox').style.display='none';"
+                style=" position: relative; right: 890px; bottom: 120px;" class="close">&times;</span>
+            <button id="confirmBtn" style="padding: 9px; width: 55px; " onclick="confirm()">OK</button>
+            <button id="cancelBtn" class="close-btn">Cancel</button>
+        </div>
+    </div>
+    <!-- remove all data in header table -->
+    <div id="headerdeleteBox" class="alert-box">
+        <div class="alert-content">
+            <p id="alertText">Are you sure you want to remove all data?</p>
+            <button id="headerAllconfimBtn" class="Btn">Confirm</button>
+            <button id="headerAllcancelBtn" class="close-btn">Cancel</button>
+        </div>
+    </div>
+
+    <div id="list-overlay" class="pop">
+        <div id="list-popupDialog" class="alert-box">
+            <div class="headershowlineitem">
+
+                <h1 class="lineitem"> </span>Purchase Invoice </span></h1>
+                <div class="vendoralgin">
+                    <h1 class="vendorinfo"> Vendor Info</h1>
+                    <span id="p-vendor" class="vendorname"></span>
+
+                    <p class="vendoraddress" id="billingaddress"> 12th Main Road, Vijaya Nagar,Velacheri, Chennai </p>
+                    <p class="vendoraddress">+918784848423</p>
+                </div>
+                <div class="invoicealgin">
+                    <p class="invoviceinfo"><b>Invoice Info</b></p>
+                    <p class="invoviceId">Invoice Id: &nbsp; &nbsp;<span id="p-invoiceId"></span></p>
+                    <p class="invovicedate">&nbsp; &nbsp;&nbsp; Invoice Date : &nbsp;
+                        <span id="Date"></span>
+                    </p>
+                    <p class="invoviceDoc">&nbsp; &nbsp;Document No: &nbsp; &nbsp;<span id="p-doc"></span></p>
+                </div>
+                <span class="line">Line Item</span>
+                <table id="viewTable" border="1" role="all" style="border-collapse: collapse; width:90%;position: relative;
+                left: 45px; bottom: 32%;">
+                    <thead class="thead">
+                        <!-- object table -->
+                        <tr style="padding: 0px;">
+
+                            <th>S.NO</th>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>UOM</th>
+                            <th>Unit Price</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+
+                    </tbody>
+                </table>
+                <!-- <span id="closeOverlay" onclick="off()" class="close"></span> -->
+                <span id="cancelPopBtn" class="close-btn">&times;<span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="invoice.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice ID Generator</title>
+    <script>
+        function generateInvoiceId() {
+            const date = new Date();
+            const year = date.getFullYear().toString().slice(-2);
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const day = ('0' + date.getDate()).slice(-2);
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+
+            return `${year}${month}${day}-${randomNum}`;
+        }
+
+        function setInvoiceId() {
+            let invoiceId = document.getElementById('id').value = generateInvoiceId();
+            console.log(invoiceId); // Output the generated invoice ID
+        }
+    </script>
+</head>
+
+<body onload="setInvoiceId()">
+    <input type="text" id="id" />
+</body>
+
+</html>
